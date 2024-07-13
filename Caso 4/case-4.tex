@@ -1,0 +1,601 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={CASO4},
+  pdfauthor={Keyla condor},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{CASO4}
+\author{Keyla condor}
+\date{2024-07-12}
+
+\begin{document}
+\maketitle
+
+\subsection{Limpieza de datos}\label{limpieza-de-datos}
+
+\section{Título 1}\label{tuxedtulo-1}
+
+\subsection{Título 2}\label{tuxedtulo-2}
+
+\subsubsection{Título 3}\label{tuxedtulo-3}
+
+Como primer paso debemos exportar la data
+
+Se reemplaza los n.a por ``sin dato'' como se muestra
+
+\begin{verbatim}
+##     id_poliza nombre_cliente fecha_inicio  fecha_fin monto_cobertura    estado
+## 1          73           Juan   2015-09-16 2023-10-06        32523.54  Expirada
+## 2          57           Luis   2017-03-08 2016-01-24        20143.19  Expirada
+## 3          46         Carlos   2021-10-29 2016-06-24         12556.6    Activa
+## 4          95         Carlos   2018-04-13 2019-12-10        48975.72    Activa
+## 5          81           Luis   2019-05-13 2018-04-03        31276.24    Activa
+## 6          58           Luis   2017-05-25 2016-07-02         50242.7  sin dato
+## 7          95            Ana   2018-09-24 2017-08-31        41559.31    Activa
+## 8          61         MarÃ­a   2022-01-02 2021-10-24        38225.97  sin dato
+## 9          60         Carlos   2019-03-20 2017-03-17        43685.26  sin dato
+## 10        -59           Luis   2019-11-13 2020-11-01        39435.03  sin dato
+## 11         99       sin dato   2017-06-21 2021-06-05        11640.05 Cancelada
+## 12          3         Carlos   2017-02-15 2017-03-26         11716.5  sin dato
+## 13         32           Luis   2015-05-10 2022-08-29        12882.25  Expirada
+## 14          9           Juan   2017-04-19 2019-07-14        38716.08    Activa
+## 15         96           Juan   2018-12-25 2021-03-14        sin dato    Activa
+## 16         99           Luis   2017-10-26 2023-04-24        82543.33  sin dato
+## 17         99            Ana   2019-10-10 2017-07-30        60078.02  Expirada
+## 18         98            Ana   2015-01-09 2021-04-23        11782.84  Expirada
+## 19         31           Juan   2019-10-04 2016-02-03        28420.21  Expirada
+## 20        -60            Ana   31-12-2023 2023-06-03        97722.68  sin dato
+## 21         95         Carlos   2020-11-22 2017-06-06        17664.35  Expirada
+## 22         53       sin dato   2017-09-16 2023-10-09        52519.73  Expirada
+## 23         59         Carlos   2019-09-28 2019-07-11        55893.27 Cancelada
+## 24         49           Luis   2021-10-08 2023-03-11        76763.98 Cancelada
+## 25         14       sin dato   2018-11-29 2021-09-29        94875.41  Invalido
+## 26         76         Carlos   2018-01-31 2021-10-05        13243.73    Activa
+## 27         97           Luis   2017-10-13 2023-12-06         30134.1  sin dato
+## 28         45           Juan   2019-11-28 2021-07-25        66039.49 Cancelada
+## 29         31           Luis   2015-07-18 2018-03-15        36559.04  Expirada
+## 30        -70         Carlos   2016-10-17 2023-07-06        sin dato  Expirada
+## 31         90           Juan   2019-10-05 2016-08-24        45758.76  sin dato
+## 32         42         Carlos   2016-10-27 2017-03-23        29176.95  Expirada
+## 33         64       sin dato   2016-04-07 2017-04-09        33363.35  Expirada
+## 34         90         MarÃ­a   2020-07-02 2016-08-07        10453.42    Activa
+## 35         43         MarÃ­a   2019-10-04 2018-08-15        89907.87 Cancelada
+## 36         61           Luis   2019-04-27 2022-12-09        53196.91  sin dato
+## 37         61            Ana   2022-01-26 2023-04-03         96636.3    Activa
+## 38         58       sin dato   2018-12-15 2020-05-24        64791.57  Expirada
+## 39         85           Luis   2020-02-12 2020-11-21        52702.32  sin dato
+## 40        -84       sin dato   31-12-2023 2019-06-24        91929.45 Cancelada
+## 41         14         Carlos   2016-05-24 2019-12-08        76045.98  Expirada
+## 42          8            Ana   2017-08-09 2021-06-18        86593.84    Activa
+## 43         72       sin dato   2020-08-02 2019-04-17        25657.24 Cancelada
+## 44         20            Ana   2021-08-06 2016-01-25        15860.62  sin dato
+## 45          6       sin dato   2022-01-26 2021-08-28        sin dato  Expirada
+## 46         88           Luis   2022-06-08 2022-04-26        16211.87 Cancelada
+## 47         39           Juan   2020-04-27 2017-01-17        26529.86  Expirada
+## 48         10         MarÃ­a   2021-03-20 2016-11-21        11198.49  sin dato
+## 49         74           Luis   2017-06-17 2022-09-20        25374.43  sin dato
+## 50        -89           Luis   2020-12-26 2022-06-21        64217.63  Invalido
+## 51         26         MarÃ­a   2020-02-14 2017-04-13        28159.61  sin dato
+## 52          9           Juan   2021-04-04 2018-01-11        85507.51 Cancelada
+## 53         96       sin dato   2019-04-01 2017-12-30        73675.06  sin dato
+## 54         37           Luis   2019-08-13 2022-07-01        93021.65  sin dato
+## 55         81           Juan   2020-03-28 2023-11-07        95191.96    Activa
+## 56         95         Carlos   2021-12-12 2019-04-21        17305.39  sin dato
+## 57         44           Juan   2020-01-03 2017-03-25        33115.71    Activa
+## 58         99           Luis   2016-01-01 2021-11-24        51309.75  Expirada
+## 59         26       sin dato   2015-03-30 2016-10-28         53684.5  sin dato
+## 60         -9         MarÃ­a   31-12-2023 2017-04-18        sin dato Cancelada
+## 61          3           Juan   2021-03-08 2020-12-15        51035.84  Expirada
+## 62         74            Ana   2016-05-25 2018-08-13        37207.46  sin dato
+## 63         20         MarÃ­a   2022-08-11 2019-02-23        90359.45  sin dato
+## 64         66            Ana   2019-07-05 2019-11-15        26225.46 Cancelada
+## 65         65         Carlos   2019-01-23 2021-02-23        31990.21  Expirada
+## 66         45         MarÃ­a   2022-05-28 2017-07-19        16897.31  sin dato
+## 67         28       sin dato   2022-07-26 2018-08-20        20972.79  sin dato
+## 68         22           Juan   2022-10-12 2019-07-27        24388.15  Expirada
+## 69         80           Luis   2021-09-23 2022-06-20        23091.65  sin dato
+## 70        -28           Luis   2022-04-13 2022-03-03        28793.04 Cancelada
+## 71         30            Ana   2022-07-03 2022-05-17        78877.81    Activa
+## 72         25           Luis   2021-11-25 2019-02-12        16316.52  sin dato
+## 73         28            Ana   2018-03-16 2016-11-30        67659.53    Activa
+## 74         93         Carlos   2017-03-12 2019-05-01        80362.64 Cancelada
+## 75         44         Carlos   2021-07-21 2019-12-29        sin dato  Invalido
+## 76         18            Ana   2021-12-19 2019-11-02         81609.7  sin dato
+## 77         50           Luis   2022-04-14 2021-01-24        79681.72 Cancelada
+## 78         17            Ana   2022-02-15 2017-05-12        64047.35    Activa
+## 79         44         Carlos   2015-11-05 2023-06-16        24440.19  Expirada
+## 80        -30           Juan   31-12-2023 2023-10-02        92666.88 Cancelada
+## 81         86         Carlos   2021-05-01 2021-03-17        93826.32  Expirada
+## 82         34            Ana   2016-09-12 2019-09-09        93258.26  Expirada
+## 83         73         MarÃ­a   2021-02-06 2023-04-12        31034.72 Cancelada
+## 84         10            Ana   2018-09-13 2017-06-10        40754.09    Activa
+## 85         37       sin dato   2018-11-28 2023-12-18        58464.82  Expirada
+## 86          2         Carlos   2016-05-03 2023-10-17        71076.37    Activa
+## 87         82         MarÃ­a   2020-06-24 2019-05-11         62655.7    Activa
+## 88         15           Luis   2022-02-19 2022-07-10         29679.9  sin dato
+## 89         99       sin dato   2022-05-25 2019-11-07         72814.3 Cancelada
+## 90        -75         Carlos   2022-11-09 2021-04-24        sin dato  Expirada
+## 91          9         MarÃ­a   2017-06-27 2018-09-20        44514.94 Cancelada
+## 92         62           Luis   2019-05-31 2017-08-14        56033.63  Expirada
+## 93          7            Ana   2019-09-13 2020-07-01        42617.69  sin dato
+## 94         52            Ana   2020-11-04 2021-05-26        68833.55  sin dato
+## 95         81            Ana   2020-10-27 2017-05-18        59786.91  sin dato
+## 96         84       sin dato   2020-10-21 2019-01-08        46262.24    Activa
+## 97         56           Luis   2019-07-04 2019-10-14        46923.86    Activa
+## 98         42         Carlos   2022-11-30 2019-08-17        87485.22  sin dato
+## 99         26       sin dato   2015-09-20 2018-12-26        82535.71    Activa
+## 100        -4       sin dato   31-12-2023 2022-07-08        63631.95  Invalido
+## 101        68       sin dato   2017-07-18 2023-09-06        95109.97    Activa
+## 102        83           Luis   2015-08-03 2018-12-02        85563.63  Expirada
+## 103        64       sin dato   2018-12-30 2020-07-12        39507.22 Cancelada
+## 104        92           Juan   2015-06-20 2020-03-28        47952.63  sin dato
+## 105        58           Luis   2015-07-12 2021-12-06        sin dato  Expirada
+## 106        62       sin dato   2020-08-22 2023-02-08        64884.69    Activa
+## 107        25            Ana   2020-11-10 2023-04-03        63765.95    Activa
+## 108        12           Luis   2021-07-19 2020-08-26        31088.26 Cancelada
+## 109        85            Ana   2018-03-09 2020-03-14        30086.37  Expirada
+## 110       -39         MarÃ­a   2017-12-14 2023-03-17        17812.64 Cancelada
+## 111        30       sin dato   2018-03-19 2016-02-18        41211.76 Cancelada
+## 112        94         MarÃ­a   2016-07-21 2018-08-06        97181.02  Expirada
+## 113        31            Ana   2016-02-25 2018-07-06        13777.35  sin dato
+## 114        58           Juan   2020-01-10 2018-05-17        71808.27 Cancelada
+## 115        37           Luis   2021-08-14 2020-05-06        64333.13  Expirada
+## 116         8         Carlos   2022-10-03 2017-04-23        79831.42    Activa
+## 117        53         Carlos   2020-06-16 2018-01-22        14778.24    Activa
+## 118        38         Carlos   2015-03-27 2017-07-15        63038.55    Activa
+## 119        89           Juan   2015-01-15 2016-10-23        50799.09  sin dato
+## 120       -22            Ana   31-12-2023 2021-05-15        sin dato Cancelada
+## 121        83            Ana   2017-03-05 2022-10-25        66498.45  sin dato
+## 122        87           Juan   2019-11-16 2021-01-29        69908.86 Cancelada
+## 123        80           Juan   2019-03-21 2021-01-22        12578.98    Activa
+## 124        68         Carlos   2016-06-07 2020-11-02         66940.7    Activa
+## 125        76         MarÃ­a   2018-12-17 2021-06-20        38732.24  Invalido
+## 126        22       sin dato   2019-07-02 2017-08-07        67830.28 Cancelada
+## 127        99         Carlos   2020-11-03 2017-12-03        59435.31  sin dato
+## 128        76       sin dato   2021-03-06 2019-02-14        95921.82  sin dato
+## 129        12         MarÃ­a   2018-03-10 2020-09-24        21687.65  Expirada
+## 130       -79         Carlos   2017-11-04 2017-12-31        29066.32 Cancelada
+## 131        69           Luis   2016-07-25 2016-08-05        40952.43    Activa
+## 132        82           Luis   2022-01-13 2019-05-07        53148.81  Expirada
+## 133        20       sin dato   2015-11-08 2021-06-12        55185.04 Cancelada
+## 134        68         Carlos   2022-06-21 2023-11-30        45266.96  sin dato
+## 135        59           Juan   2019-02-09 2019-07-20        sin dato  Expirada
+## 136        57           Juan   2016-06-15 2023-01-05        21015.14  sin dato
+## 137        92           Juan   2017-07-15 2023-06-24        16663.42 Cancelada
+## 138        41           Juan   2017-08-08 2022-07-09        30254.93    Activa
+## 139        13       sin dato   2019-02-18 2017-08-20        21375.16 Cancelada
+## 140       -43            Ana   31-12-2023 2023-01-12        31176.19  Expirada
+## 141        67       sin dato   2021-05-20 2020-10-19        44359.66  Expirada
+## 142         7           Luis   2015-06-04 2016-10-24        12432.04    Activa
+## 143        15         Carlos   2015-03-17 2021-08-13        17418.65 Cancelada
+## 144        19       sin dato   2019-07-06 2017-03-19        34780.41  Expirada
+## 145        82            Ana   2019-05-11 2019-07-28         11917.6    Activa
+## 146        38           Juan   2021-03-16 2022-09-11        18747.67 Cancelada
+## 147         1            Ana   2019-08-07 2023-08-04        72396.68 Cancelada
+## 148        14         Carlos   2018-05-26 2022-04-26        71425.56  Expirada
+## 149        52           Juan   2017-04-11 2022-08-17        80181.51    Activa
+## 150       -88            Ana   2022-10-19 2023-03-31        sin dato  Invalido
+\end{verbatim}
+
+\begin{verbatim}
+##     id_poliza nombre_cliente fecha_inicio  fecha_fin monto_cobertura    estado
+## 1          73           Juan   2015-09-16 2023-10-06        32523.54  Expirada
+## 2          57           Luis   2017-03-08 2016-01-24        20143.19  Expirada
+## 3          46         Carlos   2021-10-29 2016-06-24         12556.6    Activa
+## 4          95         Carlos   2018-04-13 2019-12-10        48975.72    Activa
+## 5          81           Luis   2019-05-13 2018-04-03        31276.24    Activa
+## 6          58           Luis   2017-05-25 2016-07-02         50242.7  sin dato
+## 7          95            Ana   2018-09-24 2017-08-31        41559.31    Activa
+## 8          61         MarÃ­a   2022-01-02 2021-10-24        38225.97  sin dato
+## 9          60         Carlos   2019-03-20 2017-03-17        43685.26  sin dato
+## 11         99       sin dato   2017-06-21 2021-06-05        11640.05 Cancelada
+## 12          3         Carlos   2017-02-15 2017-03-26         11716.5  sin dato
+## 13         32           Luis   2015-05-10 2022-08-29        12882.25  Expirada
+## 14          9           Juan   2017-04-19 2019-07-14        38716.08    Activa
+## 15         96           Juan   2018-12-25 2021-03-14        sin dato    Activa
+## 16         99           Luis   2017-10-26 2023-04-24        82543.33  sin dato
+## 17         99            Ana   2019-10-10 2017-07-30        60078.02  Expirada
+## 18         98            Ana   2015-01-09 2021-04-23        11782.84  Expirada
+## 19         31           Juan   2019-10-04 2016-02-03        28420.21  Expirada
+## 21         95         Carlos   2020-11-22 2017-06-06        17664.35  Expirada
+## 22         53       sin dato   2017-09-16 2023-10-09        52519.73  Expirada
+## 23         59         Carlos   2019-09-28 2019-07-11        55893.27 Cancelada
+## 24         49           Luis   2021-10-08 2023-03-11        76763.98 Cancelada
+## 25         14       sin dato   2018-11-29 2021-09-29        94875.41  Invalido
+## 26         76         Carlos   2018-01-31 2021-10-05        13243.73    Activa
+## 27         97           Luis   2017-10-13 2023-12-06         30134.1  sin dato
+## 28         45           Juan   2019-11-28 2021-07-25        66039.49 Cancelada
+## 29         31           Luis   2015-07-18 2018-03-15        36559.04  Expirada
+## 31         90           Juan   2019-10-05 2016-08-24        45758.76  sin dato
+## 32         42         Carlos   2016-10-27 2017-03-23        29176.95  Expirada
+## 33         64       sin dato   2016-04-07 2017-04-09        33363.35  Expirada
+## 34         90         MarÃ­a   2020-07-02 2016-08-07        10453.42    Activa
+## 35         43         MarÃ­a   2019-10-04 2018-08-15        89907.87 Cancelada
+## 36         61           Luis   2019-04-27 2022-12-09        53196.91  sin dato
+## 37         61            Ana   2022-01-26 2023-04-03         96636.3    Activa
+## 38         58       sin dato   2018-12-15 2020-05-24        64791.57  Expirada
+## 39         85           Luis   2020-02-12 2020-11-21        52702.32  sin dato
+## 41         14         Carlos   2016-05-24 2019-12-08        76045.98  Expirada
+## 42          8            Ana   2017-08-09 2021-06-18        86593.84    Activa
+## 43         72       sin dato   2020-08-02 2019-04-17        25657.24 Cancelada
+## 44         20            Ana   2021-08-06 2016-01-25        15860.62  sin dato
+## 45          6       sin dato   2022-01-26 2021-08-28        sin dato  Expirada
+## 46         88           Luis   2022-06-08 2022-04-26        16211.87 Cancelada
+## 47         39           Juan   2020-04-27 2017-01-17        26529.86  Expirada
+## 48         10         MarÃ­a   2021-03-20 2016-11-21        11198.49  sin dato
+## 49         74           Luis   2017-06-17 2022-09-20        25374.43  sin dato
+## 51         26         MarÃ­a   2020-02-14 2017-04-13        28159.61  sin dato
+## 52          9           Juan   2021-04-04 2018-01-11        85507.51 Cancelada
+## 53         96       sin dato   2019-04-01 2017-12-30        73675.06  sin dato
+## 54         37           Luis   2019-08-13 2022-07-01        93021.65  sin dato
+## 55         81           Juan   2020-03-28 2023-11-07        95191.96    Activa
+## 56         95         Carlos   2021-12-12 2019-04-21        17305.39  sin dato
+## 57         44           Juan   2020-01-03 2017-03-25        33115.71    Activa
+## 58         99           Luis   2016-01-01 2021-11-24        51309.75  Expirada
+## 59         26       sin dato   2015-03-30 2016-10-28         53684.5  sin dato
+## 61          3           Juan   2021-03-08 2020-12-15        51035.84  Expirada
+## 62         74            Ana   2016-05-25 2018-08-13        37207.46  sin dato
+## 63         20         MarÃ­a   2022-08-11 2019-02-23        90359.45  sin dato
+## 64         66            Ana   2019-07-05 2019-11-15        26225.46 Cancelada
+## 65         65         Carlos   2019-01-23 2021-02-23        31990.21  Expirada
+## 66         45         MarÃ­a   2022-05-28 2017-07-19        16897.31  sin dato
+## 67         28       sin dato   2022-07-26 2018-08-20        20972.79  sin dato
+## 68         22           Juan   2022-10-12 2019-07-27        24388.15  Expirada
+## 69         80           Luis   2021-09-23 2022-06-20        23091.65  sin dato
+## 71         30            Ana   2022-07-03 2022-05-17        78877.81    Activa
+## 72         25           Luis   2021-11-25 2019-02-12        16316.52  sin dato
+## 73         28            Ana   2018-03-16 2016-11-30        67659.53    Activa
+## 74         93         Carlos   2017-03-12 2019-05-01        80362.64 Cancelada
+## 75         44         Carlos   2021-07-21 2019-12-29        sin dato  Invalido
+## 76         18            Ana   2021-12-19 2019-11-02         81609.7  sin dato
+## 77         50           Luis   2022-04-14 2021-01-24        79681.72 Cancelada
+## 78         17            Ana   2022-02-15 2017-05-12        64047.35    Activa
+## 79         44         Carlos   2015-11-05 2023-06-16        24440.19  Expirada
+## 81         86         Carlos   2021-05-01 2021-03-17        93826.32  Expirada
+## 82         34            Ana   2016-09-12 2019-09-09        93258.26  Expirada
+## 83         73         MarÃ­a   2021-02-06 2023-04-12        31034.72 Cancelada
+## 84         10            Ana   2018-09-13 2017-06-10        40754.09    Activa
+## 85         37       sin dato   2018-11-28 2023-12-18        58464.82  Expirada
+## 86          2         Carlos   2016-05-03 2023-10-17        71076.37    Activa
+## 87         82         MarÃ­a   2020-06-24 2019-05-11         62655.7    Activa
+## 88         15           Luis   2022-02-19 2022-07-10         29679.9  sin dato
+## 89         99       sin dato   2022-05-25 2019-11-07         72814.3 Cancelada
+## 91          9         MarÃ­a   2017-06-27 2018-09-20        44514.94 Cancelada
+## 92         62           Luis   2019-05-31 2017-08-14        56033.63  Expirada
+## 93          7            Ana   2019-09-13 2020-07-01        42617.69  sin dato
+## 94         52            Ana   2020-11-04 2021-05-26        68833.55  sin dato
+## 95         81            Ana   2020-10-27 2017-05-18        59786.91  sin dato
+## 96         84       sin dato   2020-10-21 2019-01-08        46262.24    Activa
+## 97         56           Luis   2019-07-04 2019-10-14        46923.86    Activa
+## 98         42         Carlos   2022-11-30 2019-08-17        87485.22  sin dato
+## 99         26       sin dato   2015-09-20 2018-12-26        82535.71    Activa
+## 101        68       sin dato   2017-07-18 2023-09-06        95109.97    Activa
+## 102        83           Luis   2015-08-03 2018-12-02        85563.63  Expirada
+## 103        64       sin dato   2018-12-30 2020-07-12        39507.22 Cancelada
+## 104        92           Juan   2015-06-20 2020-03-28        47952.63  sin dato
+## 105        58           Luis   2015-07-12 2021-12-06        sin dato  Expirada
+## 106        62       sin dato   2020-08-22 2023-02-08        64884.69    Activa
+## 107        25            Ana   2020-11-10 2023-04-03        63765.95    Activa
+## 108        12           Luis   2021-07-19 2020-08-26        31088.26 Cancelada
+## 109        85            Ana   2018-03-09 2020-03-14        30086.37  Expirada
+## 111        30       sin dato   2018-03-19 2016-02-18        41211.76 Cancelada
+## 112        94         MarÃ­a   2016-07-21 2018-08-06        97181.02  Expirada
+## 113        31            Ana   2016-02-25 2018-07-06        13777.35  sin dato
+## 114        58           Juan   2020-01-10 2018-05-17        71808.27 Cancelada
+## 115        37           Luis   2021-08-14 2020-05-06        64333.13  Expirada
+## 116         8         Carlos   2022-10-03 2017-04-23        79831.42    Activa
+## 117        53         Carlos   2020-06-16 2018-01-22        14778.24    Activa
+## 118        38         Carlos   2015-03-27 2017-07-15        63038.55    Activa
+## 119        89           Juan   2015-01-15 2016-10-23        50799.09  sin dato
+## 121        83            Ana   2017-03-05 2022-10-25        66498.45  sin dato
+## 122        87           Juan   2019-11-16 2021-01-29        69908.86 Cancelada
+## 123        80           Juan   2019-03-21 2021-01-22        12578.98    Activa
+## 124        68         Carlos   2016-06-07 2020-11-02         66940.7    Activa
+## 125        76         MarÃ­a   2018-12-17 2021-06-20        38732.24  Invalido
+## 126        22       sin dato   2019-07-02 2017-08-07        67830.28 Cancelada
+## 127        99         Carlos   2020-11-03 2017-12-03        59435.31  sin dato
+## 128        76       sin dato   2021-03-06 2019-02-14        95921.82  sin dato
+## 129        12         MarÃ­a   2018-03-10 2020-09-24        21687.65  Expirada
+## 131        69           Luis   2016-07-25 2016-08-05        40952.43    Activa
+## 132        82           Luis   2022-01-13 2019-05-07        53148.81  Expirada
+## 133        20       sin dato   2015-11-08 2021-06-12        55185.04 Cancelada
+## 134        68         Carlos   2022-06-21 2023-11-30        45266.96  sin dato
+## 135        59           Juan   2019-02-09 2019-07-20        sin dato  Expirada
+## 136        57           Juan   2016-06-15 2023-01-05        21015.14  sin dato
+## 137        92           Juan   2017-07-15 2023-06-24        16663.42 Cancelada
+## 138        41           Juan   2017-08-08 2022-07-09        30254.93    Activa
+## 139        13       sin dato   2019-02-18 2017-08-20        21375.16 Cancelada
+## 141        67       sin dato   2021-05-20 2020-10-19        44359.66  Expirada
+## 142         7           Luis   2015-06-04 2016-10-24        12432.04    Activa
+## 143        15         Carlos   2015-03-17 2021-08-13        17418.65 Cancelada
+## 144        19       sin dato   2019-07-06 2017-03-19        34780.41  Expirada
+## 145        82            Ana   2019-05-11 2019-07-28         11917.6    Activa
+## 146        38           Juan   2021-03-16 2022-09-11        18747.67 Cancelada
+## 147         1            Ana   2019-08-07 2023-08-04        72396.68 Cancelada
+## 148        14         Carlos   2018-05-26 2022-04-26        71425.56  Expirada
+## 149        52           Juan   2017-04-11 2022-08-17        80181.51    Activa
+\end{verbatim}
+
+\begin{verbatim}
+##    id_poliza nombre_cliente fecha_inicio  fecha_fin monto_cobertura    estado
+## 1         73           Juan   2015-09-16 2023-10-06        32523.54  Expirada
+## 2         95         Carlos   2018-04-13 2019-12-10        48975.72    Activa
+## 3         99       sin dato   2017-06-21 2021-06-05        11640.05 Cancelada
+## 4          3         Carlos   2017-02-15 2017-03-26         11716.5  sin dato
+## 5         32           Luis   2015-05-10 2022-08-29        12882.25  Expirada
+## 6          9           Juan   2017-04-19 2019-07-14        38716.08    Activa
+## 7         96           Juan   2018-12-25 2021-03-14        sin dato    Activa
+## 8         99           Luis   2017-10-26 2023-04-24        82543.33  sin dato
+## 9         98            Ana   2015-01-09 2021-04-23        11782.84  Expirada
+## 10        53       sin dato   2017-09-16 2023-10-09        52519.73  Expirada
+## 11        49           Luis   2021-10-08 2023-03-11        76763.98 Cancelada
+## 12        14       sin dato   2018-11-29 2021-09-29        94875.41  Invalido
+## 13        76         Carlos   2018-01-31 2021-10-05        13243.73    Activa
+## 14        97           Luis   2017-10-13 2023-12-06         30134.1  sin dato
+## 15        45           Juan   2019-11-28 2021-07-25        66039.49 Cancelada
+## 16        31           Luis   2015-07-18 2018-03-15        36559.04  Expirada
+## 17        42         Carlos   2016-10-27 2017-03-23        29176.95  Expirada
+## 18        64       sin dato   2016-04-07 2017-04-09        33363.35  Expirada
+## 19        61           Luis   2019-04-27 2022-12-09        53196.91  sin dato
+## 20        61            Ana   2022-01-26 2023-04-03         96636.3    Activa
+## 21        58       sin dato   2018-12-15 2020-05-24        64791.57  Expirada
+## 22        85           Luis   2020-02-12 2020-11-21        52702.32  sin dato
+## 23        14         Carlos   2016-05-24 2019-12-08        76045.98  Expirada
+## 24         8            Ana   2017-08-09 2021-06-18        86593.84    Activa
+## 25        74           Luis   2017-06-17 2022-09-20        25374.43  sin dato
+## 26        37           Luis   2019-08-13 2022-07-01        93021.65  sin dato
+## 27        81           Juan   2020-03-28 2023-11-07        95191.96    Activa
+## 28        99           Luis   2016-01-01 2021-11-24        51309.75  Expirada
+## 29        26       sin dato   2015-03-30 2016-10-28         53684.5  sin dato
+## 30        74            Ana   2016-05-25 2018-08-13        37207.46  sin dato
+## 31        66            Ana   2019-07-05 2019-11-15        26225.46 Cancelada
+## 32        65         Carlos   2019-01-23 2021-02-23        31990.21  Expirada
+## 33        80           Luis   2021-09-23 2022-06-20        23091.65  sin dato
+## 34        93         Carlos   2017-03-12 2019-05-01        80362.64 Cancelada
+## 35        44         Carlos   2015-11-05 2023-06-16        24440.19  Expirada
+## 36        34            Ana   2016-09-12 2019-09-09        93258.26  Expirada
+## 37        73         MarÃ­a   2021-02-06 2023-04-12        31034.72 Cancelada
+## 38        37       sin dato   2018-11-28 2023-12-18        58464.82  Expirada
+## 39         2         Carlos   2016-05-03 2023-10-17        71076.37    Activa
+## 40        15           Luis   2022-02-19 2022-07-10         29679.9  sin dato
+## 41         9         MarÃ­a   2017-06-27 2018-09-20        44514.94 Cancelada
+## 42         7            Ana   2019-09-13 2020-07-01        42617.69  sin dato
+## 43        52            Ana   2020-11-04 2021-05-26        68833.55  sin dato
+## 44        56           Luis   2019-07-04 2019-10-14        46923.86    Activa
+## 45        26       sin dato   2015-09-20 2018-12-26        82535.71    Activa
+## 46        68       sin dato   2017-07-18 2023-09-06        95109.97    Activa
+## 47        83           Luis   2015-08-03 2018-12-02        85563.63  Expirada
+## 48        64       sin dato   2018-12-30 2020-07-12        39507.22 Cancelada
+## 49        92           Juan   2015-06-20 2020-03-28        47952.63  sin dato
+## 50        58           Luis   2015-07-12 2021-12-06        sin dato  Expirada
+## 51        62       sin dato   2020-08-22 2023-02-08        64884.69    Activa
+## 52        25            Ana   2020-11-10 2023-04-03        63765.95    Activa
+## 53        85            Ana   2018-03-09 2020-03-14        30086.37  Expirada
+## 54        94         MarÃ­a   2016-07-21 2018-08-06        97181.02  Expirada
+## 55        31            Ana   2016-02-25 2018-07-06        13777.35  sin dato
+## 56        38         Carlos   2015-03-27 2017-07-15        63038.55    Activa
+## 57        89           Juan   2015-01-15 2016-10-23        50799.09  sin dato
+## 58        83            Ana   2017-03-05 2022-10-25        66498.45  sin dato
+## 59        87           Juan   2019-11-16 2021-01-29        69908.86 Cancelada
+## 60        80           Juan   2019-03-21 2021-01-22        12578.98    Activa
+## 61        68         Carlos   2016-06-07 2020-11-02         66940.7    Activa
+## 62        76         MarÃ­a   2018-12-17 2021-06-20        38732.24  Invalido
+## 63        12         MarÃ­a   2018-03-10 2020-09-24        21687.65  Expirada
+## 64        69           Luis   2016-07-25 2016-08-05        40952.43    Activa
+## 65        20       sin dato   2015-11-08 2021-06-12        55185.04 Cancelada
+## 66        68         Carlos   2022-06-21 2023-11-30        45266.96  sin dato
+## 67        59           Juan   2019-02-09 2019-07-20        sin dato  Expirada
+## 68        57           Juan   2016-06-15 2023-01-05        21015.14  sin dato
+## 69        92           Juan   2017-07-15 2023-06-24        16663.42 Cancelada
+## 70        41           Juan   2017-08-08 2022-07-09        30254.93    Activa
+## 71         7           Luis   2015-06-04 2016-10-24        12432.04    Activa
+## 72        15         Carlos   2015-03-17 2021-08-13        17418.65 Cancelada
+## 73        82            Ana   2019-05-11 2019-07-28         11917.6    Activa
+## 74        38           Juan   2021-03-16 2022-09-11        18747.67 Cancelada
+## 75         1            Ana   2019-08-07 2023-08-04        72396.68 Cancelada
+## 76        14         Carlos   2018-05-26 2022-04-26        71425.56  Expirada
+## 77        52           Juan   2017-04-11 2022-08-17        80181.51    Activa
+\end{verbatim}
+
+\begin{verbatim}
+##     id_poliza nombre_cliente fecha_inicio  fecha_fin monto_cobertura    estado
+## 1          73           Juan   2015-09-16 2023-10-06        32523.54  Expirada
+## 2          57           Luis   2017-03-08 2016-01-24        20143.19  Expirada
+## 3          46         Carlos   2021-10-29       <NA>         12556.6    Activa
+## 4          95         Carlos   2018-04-13       <NA>        48975.72    Activa
+## 5          81           Luis   2019-05-13       <NA>        31276.24    Activa
+## 6          58           Luis   2017-05-25 2016-07-02         50242.7  sin dato
+## 7          95            Ana   2018-09-24       <NA>        41559.31    Activa
+## 8          61         MarÃ­a   2022-01-02 2021-10-24        38225.97  sin dato
+## 9          60         Carlos   2019-03-20 2017-03-17        43685.26  sin dato
+## 11         99       sin dato   2017-06-21 2021-06-05        11640.05 Cancelada
+## 12          3         Carlos   2017-02-15 2017-03-26         11716.5  sin dato
+## 13         32           Luis   2015-05-10 2022-08-29        12882.25  Expirada
+## 14          9           Juan   2017-04-19       <NA>        38716.08    Activa
+## 15         96           Juan   2018-12-25       <NA>        sin dato    Activa
+## 16         99           Luis   2017-10-26 2023-04-24        82543.33  sin dato
+## 17         99            Ana   2019-10-10 2017-07-30        60078.02  Expirada
+## 18         98            Ana   2015-01-09 2021-04-23        11782.84  Expirada
+## 19         31           Juan   2019-10-04 2016-02-03        28420.21  Expirada
+## 21         95         Carlos   2020-11-22 2017-06-06        17664.35  Expirada
+## 22         53       sin dato   2017-09-16 2023-10-09        52519.73  Expirada
+## 23         59         Carlos   2019-09-28 2019-07-11        55893.27 Cancelada
+## 24         49           Luis   2021-10-08 2023-03-11        76763.98 Cancelada
+## 25         14       sin dato   2018-11-29 2021-09-29        94875.41  Invalido
+## 26         76         Carlos   2018-01-31       <NA>        13243.73    Activa
+## 27         97           Luis   2017-10-13 2023-12-06         30134.1  sin dato
+## 28         45           Juan   2019-11-28 2021-07-25        66039.49 Cancelada
+## 29         31           Luis   2015-07-18 2018-03-15        36559.04  Expirada
+## 31         90           Juan   2019-10-05 2016-08-24        45758.76  sin dato
+## 32         42         Carlos   2016-10-27 2017-03-23        29176.95  Expirada
+## 33         64       sin dato   2016-04-07 2017-04-09        33363.35  Expirada
+## 34         90         MarÃ­a   2020-07-02       <NA>        10453.42    Activa
+## 35         43         MarÃ­a   2019-10-04 2018-08-15        89907.87 Cancelada
+## 36         61           Luis   2019-04-27 2022-12-09        53196.91  sin dato
+## 37         61            Ana   2022-01-26       <NA>         96636.3    Activa
+## 38         58       sin dato   2018-12-15 2020-05-24        64791.57  Expirada
+## 39         85           Luis   2020-02-12 2020-11-21        52702.32  sin dato
+## 41         14         Carlos   2016-05-24 2019-12-08        76045.98  Expirada
+## 42          8            Ana   2017-08-09       <NA>        86593.84    Activa
+## 43         72       sin dato   2020-08-02 2019-04-17        25657.24 Cancelada
+## 44         20            Ana   2021-08-06 2016-01-25        15860.62  sin dato
+## 45          6       sin dato   2022-01-26 2021-08-28        sin dato  Expirada
+## 46         88           Luis   2022-06-08 2022-04-26        16211.87 Cancelada
+## 47         39           Juan   2020-04-27 2017-01-17        26529.86  Expirada
+## 48         10         MarÃ­a   2021-03-20 2016-11-21        11198.49  sin dato
+## 49         74           Luis   2017-06-17 2022-09-20        25374.43  sin dato
+## 51         26         MarÃ­a   2020-02-14 2017-04-13        28159.61  sin dato
+## 52          9           Juan   2021-04-04 2018-01-11        85507.51 Cancelada
+## 53         96       sin dato   2019-04-01 2017-12-30        73675.06  sin dato
+## 54         37           Luis   2019-08-13 2022-07-01        93021.65  sin dato
+## 55         81           Juan   2020-03-28       <NA>        95191.96    Activa
+## 56         95         Carlos   2021-12-12 2019-04-21        17305.39  sin dato
+## 57         44           Juan   2020-01-03       <NA>        33115.71    Activa
+## 58         99           Luis   2016-01-01 2021-11-24        51309.75  Expirada
+## 59         26       sin dato   2015-03-30 2016-10-28         53684.5  sin dato
+## 61          3           Juan   2021-03-08 2020-12-15        51035.84  Expirada
+## 62         74            Ana   2016-05-25 2018-08-13        37207.46  sin dato
+## 63         20         MarÃ­a   2022-08-11 2019-02-23        90359.45  sin dato
+## 64         66            Ana   2019-07-05 2019-11-15        26225.46 Cancelada
+## 65         65         Carlos   2019-01-23 2021-02-23        31990.21  Expirada
+## 66         45         MarÃ­a   2022-05-28 2017-07-19        16897.31  sin dato
+## 67         28       sin dato   2022-07-26 2018-08-20        20972.79  sin dato
+## 68         22           Juan   2022-10-12 2019-07-27        24388.15  Expirada
+## 69         80           Luis   2021-09-23 2022-06-20        23091.65  sin dato
+## 71         30            Ana   2022-07-03       <NA>        78877.81    Activa
+## 72         25           Luis   2021-11-25 2019-02-12        16316.52  sin dato
+## 73         28            Ana   2018-03-16       <NA>        67659.53    Activa
+## 74         93         Carlos   2017-03-12 2019-05-01        80362.64 Cancelada
+## 75         44         Carlos   2021-07-21 2019-12-29        sin dato  Invalido
+## 76         18            Ana   2021-12-19 2019-11-02         81609.7  sin dato
+## 77         50           Luis   2022-04-14 2021-01-24        79681.72 Cancelada
+## 78         17            Ana   2022-02-15       <NA>        64047.35    Activa
+## 79         44         Carlos   2015-11-05 2023-06-16        24440.19  Expirada
+## 81         86         Carlos   2021-05-01 2021-03-17        93826.32  Expirada
+## 82         34            Ana   2016-09-12 2019-09-09        93258.26  Expirada
+## 83         73         MarÃ­a   2021-02-06 2023-04-12        31034.72 Cancelada
+## 84         10            Ana   2018-09-13       <NA>        40754.09    Activa
+## 85         37       sin dato   2018-11-28 2023-12-18        58464.82  Expirada
+## 86          2         Carlos   2016-05-03       <NA>        71076.37    Activa
+## 87         82         MarÃ­a   2020-06-24       <NA>         62655.7    Activa
+## 88         15           Luis   2022-02-19 2022-07-10         29679.9  sin dato
+## 89         99       sin dato   2022-05-25 2019-11-07         72814.3 Cancelada
+## 91          9         MarÃ­a   2017-06-27 2018-09-20        44514.94 Cancelada
+## 92         62           Luis   2019-05-31 2017-08-14        56033.63  Expirada
+## 93          7            Ana   2019-09-13 2020-07-01        42617.69  sin dato
+## 94         52            Ana   2020-11-04 2021-05-26        68833.55  sin dato
+## 95         81            Ana   2020-10-27 2017-05-18        59786.91  sin dato
+## 96         84       sin dato   2020-10-21       <NA>        46262.24    Activa
+## 97         56           Luis   2019-07-04       <NA>        46923.86    Activa
+## 98         42         Carlos   2022-11-30 2019-08-17        87485.22  sin dato
+## 99         26       sin dato   2015-09-20       <NA>        82535.71    Activa
+## 101        68       sin dato   2017-07-18       <NA>        95109.97    Activa
+## 102        83           Luis   2015-08-03 2018-12-02        85563.63  Expirada
+## 103        64       sin dato   2018-12-30 2020-07-12        39507.22 Cancelada
+## 104        92           Juan   2015-06-20 2020-03-28        47952.63  sin dato
+## 105        58           Luis   2015-07-12 2021-12-06        sin dato  Expirada
+## 106        62       sin dato   2020-08-22       <NA>        64884.69    Activa
+## 107        25            Ana   2020-11-10       <NA>        63765.95    Activa
+## 108        12           Luis   2021-07-19 2020-08-26        31088.26 Cancelada
+## 109        85            Ana   2018-03-09 2020-03-14        30086.37  Expirada
+## 111        30       sin dato   2018-03-19 2016-02-18        41211.76 Cancelada
+## 112        94         MarÃ­a   2016-07-21 2018-08-06        97181.02  Expirada
+## 113        31            Ana   2016-02-25 2018-07-06        13777.35  sin dato
+## 114        58           Juan   2020-01-10 2018-05-17        71808.27 Cancelada
+## 115        37           Luis   2021-08-14 2020-05-06        64333.13  Expirada
+## 116         8         Carlos   2022-10-03       <NA>        79831.42    Activa
+## 117        53         Carlos   2020-06-16       <NA>        14778.24    Activa
+## 118        38         Carlos   2015-03-27       <NA>        63038.55    Activa
+## 119        89           Juan   2015-01-15 2016-10-23        50799.09  sin dato
+## 121        83            Ana   2017-03-05 2022-10-25        66498.45  sin dato
+## 122        87           Juan   2019-11-16 2021-01-29        69908.86 Cancelada
+## 123        80           Juan   2019-03-21       <NA>        12578.98    Activa
+## 124        68         Carlos   2016-06-07       <NA>         66940.7    Activa
+## 125        76         MarÃ­a   2018-12-17 2021-06-20        38732.24  Invalido
+## 126        22       sin dato   2019-07-02 2017-08-07        67830.28 Cancelada
+## 127        99         Carlos   2020-11-03 2017-12-03        59435.31  sin dato
+## 128        76       sin dato   2021-03-06 2019-02-14        95921.82  sin dato
+## 129        12         MarÃ­a   2018-03-10 2020-09-24        21687.65  Expirada
+## 131        69           Luis   2016-07-25       <NA>        40952.43    Activa
+## 132        82           Luis   2022-01-13 2019-05-07        53148.81  Expirada
+## 133        20       sin dato   2015-11-08 2021-06-12        55185.04 Cancelada
+## 134        68         Carlos   2022-06-21 2023-11-30        45266.96  sin dato
+## 135        59           Juan   2019-02-09 2019-07-20        sin dato  Expirada
+## 136        57           Juan   2016-06-15 2023-01-05        21015.14  sin dato
+## 137        92           Juan   2017-07-15 2023-06-24        16663.42 Cancelada
+## 138        41           Juan   2017-08-08       <NA>        30254.93    Activa
+## 139        13       sin dato   2019-02-18 2017-08-20        21375.16 Cancelada
+## 141        67       sin dato   2021-05-20 2020-10-19        44359.66  Expirada
+## 142         7           Luis   2015-06-04       <NA>        12432.04    Activa
+## 143        15         Carlos   2015-03-17 2021-08-13        17418.65 Cancelada
+## 144        19       sin dato   2019-07-06 2017-03-19        34780.41  Expirada
+## 145        82            Ana   2019-05-11       <NA>         11917.6    Activa
+## 146        38           Juan   2021-03-16 2022-09-11        18747.67 Cancelada
+## 147         1            Ana   2019-08-07 2023-08-04        72396.68 Cancelada
+## 148        14         Carlos   2018-05-26 2022-04-26        71425.56  Expirada
+## 149        52           Juan   2017-04-11       <NA>        80181.51    Activa
+\end{verbatim}
+
+\end{document}

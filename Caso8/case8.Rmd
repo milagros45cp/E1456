@@ -1,0 +1,126 @@
+---
+title: "Case8"
+author: "Keyla condor"
+date: '2024-07-13'
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Limpieza data
+
+```{r}
+library(tidyverse)
+library(rio)
+library(dplyr)
+library(readr)
+```
+
+
+Como primer paso debemos exportar la data 
+
+```{r}
+transacciones<-read.csv("base_transacciones.csv")
+```
+
+# Cambio del n.a
+
+Se reemplaza los n.a por "sin dato" como se muestra.
+
+```{r}
+transacciones <- mutate_all(transacciones,~replace(., is.na(.), "sin dato"))
+```
+
+# Separacion na
+
+aqui procedemos a juntar los datos na en otra tabla
+
+```{r}
+registros_no_encontrados <- transacciones %>%
+  filter(monto %in% c("", "sin dato") | tipo_transaccion %in% c("", "sin dato")
+         | estado_transaccion %in% c("","sin dato"))
+```
+
+# Fechas correctas
+
+Aqui procedemmos a separar por las que tienen el formato de la fecha y las que no poseen o son incorrectas.
+
+```{r}
+is_valid_date <- function(date) {
+  grepl("^\\d{4}-\\d{2}-\\d{2}$", date)
+}
+
+fechas_invalidas <- transacciones %>%
+  filter(!is_valid_date(fecha_transaccion))
+
+transacciones <- transacciones %>%
+  filter(is_valid_date(fecha_transaccion))
+```
+
+# Solo positivos
+
+Aqui separamos los negativos y positivos
+
+```{r}
+valores_negativos <- transacciones %>%
+  filter(id_transaccion< 0)
+
+transacciones<- transacciones[transacciones$id_transaccion>0,]
+```
+
+# conteo
+
+Se procede hacer el conteo
+
+```{r}
+clientes<- transacciones %>%
+  group_by(id_cliente)%>%
+  summarise(conteo = n())
+```
+
+nos piden cantidad de dias por lo que debemos eliminar los clientes con solamente una transaccion
+
+```{r}
+clientes <- clientes %>%
+  filter(conteo > 1)
+print(clientes)
+```
+
+# Transacciones completadas
+
+```{r}
+transac_complet <- transacciones %>%
+  filter(estado_transaccion == "Completada")
+```
+
+Valores maximos encontrados: retiros(3000),transferencias(5000),depositos(3000)
+```{r}
+transaccion_anormal <- transacciones %>%
+  filter((tipo_transaccion == "Retiro" & monto > 3000) |
+           (tipo_transaccion == "Transferencia" & monto > 5000) |
+           (tipo_transaccion == "Deposito"& monto > 3000))
+```
+
+# Valores incorrectos
+
+agrupacion de todos los valores incorrectos
+
+``` {r}
+valores_incorrectos <- bind_rows(
+  fechas_invalidas,
+  registros_no_encontrados,
+  valores_negativos
+)
+
+```
+
+# data limpia
+
+```{r}
+print(transacciones)
+```
+
+
